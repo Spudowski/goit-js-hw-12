@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentPage = 1;
     let currentQuery = '';
-    let totalHits = 120;
+    let totalHits = 40;
 
     loadMoreBtn.style.display = 'none';
 
@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         currentQuery = input.value;
         currentPage = 1;
-        resultDiv.innerHTML = ''; 
+        resultDiv.innerHTML = '';
         loadMoreBtn.style.display = 'inline-block';
         fetchImages(currentQuery, currentPage)
     });
-
+    
     loadMoreBtn.addEventListener('click', async () => {
         currentPage++;
         await fetchImages(currentQuery, currentPage);
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             orientation: 'horizontal',
             safesearch: 'true',
             page: page,
-            per_page: 39
+            per_page: 20
         });
 
 
@@ -89,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const lightbox = new SimpleLightbox('.gallery-item', {});
                 lightbox.refresh();
 
-            if (resultDiv.children.length >= totalHits) {
+            if (data.hits.length < 20) {
+                loadMoreBtn.style.display = 'none';
+            } else if (resultDiv.children.length >= totalHits) {
                 loadMoreBtn.style.display = 'none';
                 iziToast.info({
                     message: "We're sorry, but you've reached the end of search results.",
