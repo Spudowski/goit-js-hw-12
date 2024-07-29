@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadMoreBtn.style.display = 'block';
             }
         } else {
+            loadMoreBtn.style.display = 'none';
             iziToast.error({
                 message: `Sorry, there are no images matching<br> your search query. Please try again!`,
                 progressBarColor: '#808080',
